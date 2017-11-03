@@ -1,10 +1,9 @@
 //
 //  ViewController.swift
 //
-//  Created by masami ishiyama on 2017/08/23.
-//  Copyright © 2017年 moccow. All rights reserved.
+//  画面右下のボタンを押すと録画が始まり、もう一度押すと録画が終了。
+//  録画ファイルは/Users/USER_NAME/Documents/temp.movに保存される。
 //
-
 
 
 import Cocoa
@@ -32,12 +31,6 @@ class ViewController: NSViewController, AVCaptureFileOutputRecordingDelegate {
     ////////////////////////////////////////////////////////////////////////////////
     // AVFoundation Objs
     ////////////////////////////////////////////////////////////////////////////////
-
-    // デバイスからキャプチャした映像を表示するレイヤー（CALayerのサブクラス）
-    private var videoLayer : AVCaptureVideoPreviewLayer!
-    
-    // デバイス（カメラ、マイク）からキャプチャしたメディア（映像、音声）を管理するオブジェクト
-    private var captureSession = AVCaptureSession()
     
     // ビデオデバイス←カメラ
     private var videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -45,17 +38,28 @@ class ViewController: NSViewController, AVCaptureFileOutputRecordingDelegate {
     private var audioDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
     
     
-    // キャプチャしたメディア（映像、音声）を"QuickTime形式（.mov）"で記録する
-    private let fileOutput = AVCaptureMovieFileOutput()
-    
     // 入力デバイスを指定してインスタンスを生成し、デバイスから得られるメディア（映像、音声）を
     // AVCaptureSessionのインスタンスに追加する
     private var videoInput:AVCaptureDeviceInput!
     private var audioInput:AVCaptureDeviceInput!
     
     
+    // キャプチャしたメディア（映像、音声）を"QuickTime形式（.mov）"で記録する
+    private let fileOutput = AVCaptureMovieFileOutput()
+    
+    
+    // デバイス（カメラ、マイク）からキャプチャしたメディア（映像、音声）を管理するオブジェクト
+    private var captureSession = AVCaptureSession()
+    
+    
+    // デバイスからキャプチャした映像を表示するレイヤー（CALayerのサブクラス）
+    private var videoLayer : AVCaptureVideoPreviewLayer!
+    
+    
+    
+    
     private var isRecording = false
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +105,7 @@ class ViewController: NSViewController, AVCaptureFileOutputRecordingDelegate {
         // 表示画面フレームの設定
         self.videoView.layer?.addSublayer(videoLayer)
         self.videoLayer.frame = self.videoView.frame
-
+        
         
         // キャプチャセッション稼働開始
         self.captureSession.startRunning()

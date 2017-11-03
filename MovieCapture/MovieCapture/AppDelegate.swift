@@ -1,9 +1,7 @@
 //
 //  AppDelegate.swift
-//  pc_rec_app
+//  MovieCapture
 //
-//  Created by masami ishiyama on 2017/08/23.
-//  Copyright © 2017年 moccow. All rights reserved.
 //
 
 import Cocoa
